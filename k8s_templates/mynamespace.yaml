@@ -1,0 +1,10 @@
+#file used to deploy a namespace with name "mynamespace"
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test
+  labels:
+    c8s.citadelgroup.com/namespace_role: DR
+    c8s.citadelgroup.com/namespace_role_annotation: pe.ent-gen-1.dev.njx
+    c8s.citadelgroup.com/namespace_type: user
+    c8s.citadelgroup.com/splunk_index: orc_cloud_log

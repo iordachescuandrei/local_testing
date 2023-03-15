@@ -1,0 +1,26 @@
+#manifest of redis pod  with annotations
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis
+  annotations:
+    ad.datadoghq.com/redis.check_names: '["redisdb"]'
+    ad.datadoghq.com/redis.init_configs: '[{}]'
+    ad.datadoghq.com/redis.instances: |
+      [
+        {
+          "host": "%%host%%",
+          "port":"6379"
+        }
+      ]
+  labels:
+    myapp: rediscustom
+    env: test
+spec:
+  containers:
+  - name: redis
+    image: redis:latest
+    ports:
+    - containerPort: 6379
+    resources:
+      

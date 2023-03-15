@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: logapp2
+spec:
+  containers:
+  - name: logapp
+    image: logging-image:latest
+    imagePullPolicy: Never
+    ports:
+    - containerPort: 80

@@ -1,0 +1,17 @@
+apiVersion: datadoghq.com/v1alpha1
+kind: DatadogMonitor
+metadata:
+  name: deployment-replicas
+spec:
+  message: "{{deployment}} is running with less pods than desired \n @slack-fip1100-feed"
+  name: Deployment {{deployment}} is low on running pods
+  options: {}
+  query: avg(last_15m):avg:kubernetes_state.deployment.replicas_desired{kube_cluster_name:fip1100}
+    by {kube_deployment} - avg:kubernetes_state.deployment.replicas_available{kube_cluster_name:fip1100}
+    by {kube_deployment} > 0.5
+  tags:
+  - project:fip1100
+  - generated:kubernetes
+  type: query alert
+
+#datadog monitor deployment file 

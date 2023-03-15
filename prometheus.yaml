@@ -1,0 +1,29 @@
+#manifest of redis pod  with annotations
+apiVersion: v1
+kind: Pod
+metadata:
+  name: prometheus
+  annotations:
+    #prometheus.io/path: /metrics
+    ad.datadoghq.com/prometheus.check_names: '["openmetrics"]'
+    ad.datadoghq.com/prometheus.init_configs: '[{}]'
+    ad.datadoghq.com/prometheus.instances: |
+      [
+        {
+          "openmetrics_endpoint": "http://%%host%%:9090/metrics",
+          "metrics": [".*"],
+          "send_monotonic_counter": false,
+          "max_returned_metrics": 500,
+          "collect_histogram_buckets": false
+        }
+      ]             
+  labels:
+    pod_name: prometheustest
+spec:
+  containers:
+  - name: prometheus
+    image: prom/prometheus
+    ports:
+    - containerPort: 9090
+    resources:
+      
